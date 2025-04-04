@@ -78,7 +78,6 @@ class Fm_Brand_Blocks {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -103,27 +102,26 @@ class Fm_Brand_Blocks {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-fm-brand-blocks-loader.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-fm-brand-blocks-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-fm-brand-blocks-i18n.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-fm-brand-blocks-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-fm-brand-blocks-admin.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/class-fm-brand-blocks-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-fm-brand-blocks-public.php';
+		require_once plugin_dir_path( __DIR__ ) . 'public/class-fm-brand-blocks-public.php';
 
 		$this->loader = new Fm_Brand_Blocks_Loader();
-
 	}
 
 	/**
@@ -140,7 +138,6 @@ class Fm_Brand_Blocks {
 		$plugin_i18n = new Fm_Brand_Blocks_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -156,7 +153,6 @@ class Fm_Brand_Blocks {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
 	}
 
 	/**
@@ -172,7 +168,7 @@ class Fm_Brand_Blocks {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
+		$this->loader->add_action( 'init', 'FM_Brand_Blocks_CPT', 'register_post_type' );
 	}
 
 	/**
@@ -214,5 +210,4 @@ class Fm_Brand_Blocks {
 	public function get_version() {
 		return $this->version;
 	}
-
 }

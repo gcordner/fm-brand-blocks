@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The plugin bootstrap file
  *
@@ -63,6 +62,8 @@ register_deactivation_hook( __FILE__, 'deactivate_fm_brand_blocks' );
  * admin-specific hooks, and public-facing site hooks.
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-fm-brand-blocks.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-fm-brand-blocks-cpt.php';
+
 
 /**
  * Begins execution of the plugin.
@@ -77,6 +78,5 @@ function run_fm_brand_blocks() {
 
 	$plugin = new Fm_Brand_Blocks();
 	$plugin->run();
-
 }
 run_fm_brand_blocks();
