@@ -153,6 +153,12 @@ class Fm_Brand_Blocks {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+
+		require_once plugin_dir_path( __DIR__ ) . 'admin/class-fm-brand-blocks-admin-brand-connection.php';
+		$brand_connection = new FM_Brand_Blocks_Admin_Brand_Connection();
+
+		$this->loader->add_action( 'product_brand_edit_form_fields', $brand_connection, 'edit_brand_form_field' );
+		$this->loader->add_action( 'edited_product_brand', $brand_connection, 'save_brand_block_connection' );
 	}
 
 	/**
