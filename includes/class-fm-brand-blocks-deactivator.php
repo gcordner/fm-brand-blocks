@@ -30,7 +30,5 @@ class Fm_Brand_Blocks_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-
 	}
-
 }
