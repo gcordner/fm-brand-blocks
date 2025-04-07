@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The file that defines the core plugin class
  *
@@ -175,6 +174,7 @@ class Fm_Brand_Blocks {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action( 'init', 'FM_Brand_Blocks_CPT', 'register_post_type' );
+		$this->loader->add_action( 'woocommerce_archive_description', $plugin_public, 'maybe_output_brand_block' );
 	}
 
 	/**

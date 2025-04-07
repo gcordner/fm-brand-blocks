@@ -96,4 +96,37 @@ class Fm_Brand_Blocks_Public {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/fm-brand-blocks-public.js', array( 'jquery' ), $this->version, false );
 	}
+
+	/**
+	 * Maybe output the brand block content on the brand archive page.
+	 *
+	 * @return void
+	 */
+	public function maybe_output_brand_block() {
+		$current_term = get_queried_object();
+
+		if (
+			! is_tax( 'product_brand' ) ||
+			! $current_term instanceof WP_Term
+		) {
+			return;
+		}
+
+		$associated_block_id = get_term_meta( $current_term->term_id, 'associated_brand_block_id', true );
+		$brand_block_post    = $associated_block_id ? get_post( $associated_block_id ) : null;
+
+		if ( $brand_block_post && $brand_block_post->post_status === 'publish' ) {
+			echo '<div class="archive-description entry-content">';
+			echo apply_filters( 'the_content', $brand_block_post->post_content );
+			echo '</div>';
+			return;
+		}
+
+		// fallback to term description.
+		if ( ! empty( $current_term->description ) ) {
+			echo '<div class="archive-description entry-content">';
+			echo wp_kses_post( apply_filters( 'the_content', wp_kses_post( $current_term->description ) ) );
+			echo '</div>';
+		}
+	}
 }
