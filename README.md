@@ -10,6 +10,13 @@ This plugin:
 2. Connects each **Brand Block** to a specific WooCommerce brand.
 3. Outputs the associated **Brand Block** on WooCommerce brand archive pages, replacing the default brand description.
 
+## Installation
+
+1. Upload and activate plugin.
+2. Create new Brand Blocks in the **Brand Blocks** admin, as if you are creating a post.
+3. From the Brand admin, you can now link a **Brand Block** post type. It will appear beneath the Brand title, and above the brand product grid, in place of the default description.
+
+
 ## Plugin Directory Structure
 
 ```
@@ -49,9 +56,9 @@ This plugin:
         └── fm-brand-blocks-public-display.php
 ```
 
-## Implementation Steps
+## How it Works
 
-### 1. Register the Custom Post Type
+### 1. Registers the Custom Post Type
 
 Located at: `includes/class-fm-brand-blocks-cpt.php`
 
@@ -59,7 +66,7 @@ This file defines a class (`FM_Brand_Blocks_CPT`) with a `register_post_type()` 
 
 > ✅ _Explanation: This step defines how the Brand Block content type is created and managed._
 
-### 2. Load the CPT Class in the Bootstrap File
+### 2. Loads the CPT Class in the Bootstrap File
 
 Located at: `fm-brand-blocks.php`
 
@@ -67,7 +74,7 @@ This ensures the CPT file is included and available to the plugin.
 
 > ✅ _Explanation: This step includes the CPT class so WordPress knows about it when the plugin loads._
 
-### 3. Register the Hook to Initialize the CPT
+### 3. Registers the Hook to Initialize the CPT
 
 Located in: `includes/class-fm-brand-blocks.php` inside the `define_public_hooks()` method.
 
@@ -75,7 +82,7 @@ Hooks the `register_post_type()` method to WordPress’s `init` action.
 
 > ✅ _Explanation: This step actually runs the CPT registration when WordPress initializes._
 
-### 4. Connect a Brand to a Brand Block
+### 4. Connects a Brand to a Brand Block
 
 File: `admin/class-fm-brand-blocks-admin-brand-connection.php`
 
@@ -91,7 +98,7 @@ $this->loader->add_action( 'edited_pa_brand', $brand_connection, 'save_brand_blo
 
 > ✅ _Explanation: This step enables associating a specific Brand Block with a WooCommerce brand._
 
-### 5. Display Brand Block on Brand Archive Pages
+### 5. Displays Brand Block on Brand Archive Pages
 
 Method added in `public/class-fm-brand-blocks-public.php`:
 
@@ -115,13 +122,13 @@ This replaces the brand archive description with the associated Brand Block cont
 
 - The plugin assumes the WooCommerce archive template displays `woocommerce_archive_description`.
 - If you're using a customized `archive-product.php` (e.g., in a child theme like Astra), make sure it includes `do_action( 'woocommerce_archive_description' )`.
+- Will require template editing on FSE block themes.
 
 ## To-Do
 
 - Ensure default WooCommerce templates display brand descriptions if needed.
 - Add support for WooCommerce category descriptions (optional).
-- Prevent double-output of both Brand Block and default description.
 
 ## License
 
-This plugin is open source. See [LICENSE.txt](LICENSE.txt) for details.
+Licensed under GNU General Public License (GPL). See [LICENSE.txt](LICENSE.txt) for details.
